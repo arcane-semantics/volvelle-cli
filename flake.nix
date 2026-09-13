@@ -1,13 +1,13 @@
 {
-  description = "CLI for Caelestia dots";
+  description = "Command-line interface for Volvelle";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+    volvelle-shell = {
+      url = "git+ssh://git@github.com/arcane-semantics/volvelle-shell?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.caelestia-cli.follows = "";
+      inputs.volvelle-cli.follows = "";
     };
   };
 
@@ -25,12 +25,12 @@
     formatter = eachSystem (system: pkgsOf.${system}.alejandra);
 
     packages = eachSystem (system: rec {
-      caelestia-cli = pkgsOf.${system}.callPackage ./default.nix {
+      volvelle-cli = pkgsOf.${system}.callPackage ./default.nix {
         rev = self.rev or self.dirtyRev;
-        caelestia-shell = inputs.caelestia-shell.packages.${system}.default;
+        volvelle-shell = inputs.volvelle-shell.packages.${system}.default;
       };
-      with-shell = caelestia-cli.override {withShell = true;};
-      default = caelestia-cli;
+      with-shell = volvelle-cli.override {withShell = true;};
+      default = volvelle-cli;
     });
 
     devShells = eachSystem (system: {

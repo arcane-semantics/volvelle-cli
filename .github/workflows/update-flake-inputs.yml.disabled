@@ -1,0 +1,65 @@
+name: Update flake inputs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update flake inputs
+        uses: caelestia-dots/.github/actions/nix-update@main
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          package: with-shell
+
+      - name: Test modules
+        run: |
+          result/bin/volvelle -v
+          result/bin/volvelle -h
+          result/bin/volvelle toggle -h
+          result/bin/volvelle scheme -h
+          result/bin/volvelle scheme list
+          result/bin/volvelle scheme get
+          result/bin/volvelle scheme set -n gruvbox -f hard -m dark -v content
+          result/bin/volvelle screenshot -h
+          result/bin/volvelle record -h
+          result/bin/volvelle clipboard -h
+          result/bin/volvelle emoji -h
+          result/bin/volvelle emoji
+          result/bin/volvelle wallpaper -h
+          result/bin/volvelle resizer -h
+
+      - name: Test graphical stuff
+        env:
+          XDG_RUNTIME_DIR: /home/runner/runtime
+          WLR_BACKENDS: headless
+          WLR_LIBINPUT_NO_DEVICES: 1
+          WAYLAND_DISPLAY: wayland-1
+          GTK_USE_PORTAL: 0
+        run: |
+          mkdir $XDG_RUNTIME_DIR
+          chown $USER $XDG_RUNTIME_DIR
+          chmod 0700 $XDG_RUNTIME_DIR
+
+          nix profile install 'nixpkgs#sway'
+          sway &
+          sleep 3  # Give Sway some time to start
+          result/bin/volvelle shell -d
+          sleep 3  # Give the shell some time to start (and die)
+
+          # Test CLI graphical modules
+          result/bin/volvelle clipboard &
+          result/bin/volvelle emoji -p &
+          result/bin/volvelle shell -s
+          result/bin/volvelle shell drawers list
+          result/bin/volvelle shell mpris list
+          result/bin/volvelle shell notifs clear
+
+          pgrep .quickshell-wra  # Fail job if shell died
+          result/bin/volvelle shell -k
+          killall sway  # Screw using IPC

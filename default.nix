@@ -15,13 +15,13 @@
   gpu-screen-recorder,
   dconf,
   killall,
-  caelestia-shell,
+  volvelle-shell,
   withShell ? false,
   discordBin ? "discord",
   qtctStyle ? "Darkly",
 }:
 python3.pkgs.buildPythonApplication {
-  pname = "caelestia-cli";
+  pname = "volvelle-cli";
   version = "${rev}";
   src = ./.;
   pyproject = true;
@@ -36,7 +36,7 @@ python3.pkgs.buildPythonApplication {
     pillow
   ];
 
-  pythonImportsCheck = ["caelestia"];
+  pythonImportsCheck = ["volvelle"];
 
   nativeBuildInputs = [installShellFiles];
   propagatedBuildInputs =
@@ -54,34 +54,34 @@ python3.pkgs.buildPythonApplication {
       dconf
       killall
     ]
-    ++ lib.optional withShell caelestia-shell;
+    ++ lib.optional withShell volvelle-shell;
 
   SETUPTOOLS_SCM_PRETEND_VERSION = 1;
 
   patchPhase = ''
     # Replace qs config call with nix shell pkg bin
-    substituteInPlace src/caelestia/subcommands/shell.py \
-    	--replace-fail '"qs", "-c", "caelestia"' '"caelestia-shell"'
-    substituteInPlace src/caelestia/subcommands/screenshot.py \
-    	--replace-fail '"qs", "-c", "caelestia"' '"caelestia-shell"'
+    substituteInPlace src/volvelle/subcommands/shell.py \
+    	--replace-fail '"qs", "-c", "volvelle"' '"volvelle-shell"'
+    substituteInPlace src/volvelle/subcommands/screenshot.py \
+    	--replace-fail '"qs", "-c", "volvelle"' '"volvelle-shell"'
 
     # Use config bin instead of discord + fix todoist
-    substituteInPlace src/caelestia/subcommands/toggle.py \
+    substituteInPlace src/volvelle/subcommands/toggle.py \
     	--replace-fail 'discord' ${discordBin} \
       --replace-fail '["todoist"]' '["todoist.desktop"]'
 
     # Use config style instead of darkly
-    substituteInPlace src/caelestia/data/templates/qtengine.json \
+    substituteInPlace src/volvelle/data/templates/qtengine.json \
     	--replace-fail 'Darkly' '${qtctStyle}'
   '';
 
-  postInstall = "installShellCompletion completions/caelestia.fish";
+  postInstall = "installShellCompletion completions/volvelle.fish";
 
   meta = {
-    description = "The main control script for the Caelestia dotfiles";
-    homepage = "https://github.com/caelestia-dots/cli";
+    description = "Command-line interface for Volvelle";
+    homepage = "https://github.com/arcane-semantics/volvelle-cli";
     license = lib.licenses.gpl3Only;
-    mainProgram = "caelestia";
+    mainProgram = "volvelle";
     platforms = lib.platforms.linux;
   };
 }

@@ -1,47 +1,92 @@
 {
   "nodes": {
-    "caelestia-shell": {
-      "inputs": {
-        "caelestia-cli": [],
-        "m3shapes": "m3shapes",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "quickshell": "quickshell"
-      },
+    "crane": {
       "locked": {
-        "lastModified": 1789162818,
-        "narHash": "sha256-0iAQzV1vHYEScTcts3t4tpXoCfNQK06UYVzqtnbbPyg=",
-        "owner": "caelestia-dots",
-        "repo": "shell",
-        "rev": "a54dd8e83fdeb4a6a26dd552b7330f352c101168",
-        "type": "github"
+        "lastModified": 1771121070,
+        "narHash": "sha256-aIlv7FRXF9q70DNJPI237dEDAznSKaXmL5lfK/Id/bI=",
+        "ref": "refs/tags/v0.23.1",
+        "rev": "a2812c19f1ed2e5ed5ce2ef7109798b575c180e1",
+        "revCount": 813,
+        "type": "git",
+        "url": "https://github.com/ipetkov/crane"
       },
       "original": {
-        "owner": "caelestia-dots",
-        "repo": "shell",
-        "type": "github"
+        "ref": "refs/tags/v0.23.1",
+        "type": "git",
+        "url": "https://github.com/ipetkov/crane"
+      }
+    },
+    "cxx-qt-cmake": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787587910,
+        "narHash": "sha256-AybluTy2PvxOvT/k2sMS5en91oYL5j/gumGkfQMy3ZQ=",
+        "ref": "refs/tags/0.10.0",
+        "rev": "64e63f560737b3b7f85ef8267c5918e4b8176d5a",
+        "revCount": 24,
+        "type": "git",
+        "url": "https://github.com/KDAB/cxx-qt-cmake"
+      },
+      "original": {
+        "ref": "refs/tags/0.10.0",
+        "type": "git",
+        "url": "https://github.com/KDAB/cxx-qt-cmake"
+      }
+    },
+    "cxx-qt-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783088476,
+        "narHash": "sha256-4c6RdeomQHm/4xc+ZtOTyOic+ZUpB1hsRLaj3W58Gx8=",
+        "ref": "refs/heads/main",
+        "rev": "d1601f4c4cd601fbb520af42ecc34b9bb6ed46f8",
+        "revCount": 1653,
+        "type": "git",
+        "url": "https://github.com/KDAB/cxx-qt"
+      },
+      "original": {
+        "rev": "d1601f4c4cd601fbb520af42ecc34b9bb6ed46f8",
+        "type": "git",
+        "url": "https://github.com/KDAB/cxx-qt"
+      }
+    },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "volvelle-shell",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1788089909,
+        "narHash": "sha256-m5+noXf4tQ4bwGdpnaEmrhCRXJodKz9gaiva8FEM/50=",
+        "ref": "refs/heads/main",
+        "rev": "d0904bb5eb3edc64c4acaccd1199ebded3fc0bca",
+        "revCount": 2767,
+        "type": "git",
+        "url": "https://github.com/nix-community/fenix"
+      },
+      "original": {
+        "rev": "d0904bb5eb3edc64c4acaccd1199ebded3fc0bca",
+        "type": "git",
+        "url": "https://github.com/nix-community/fenix"
       }
     },
     "m3shapes": {
-      "inputs": {
-        "nixpkgs": [
-          "caelestia-shell",
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1787906858,
-        "narHash": "sha256-YZelgEZflFNwGutX4/tIzBdbOeghJgE2oDw0uWYGxns=",
+        "lastModified": 1781017666,
+        "narHash": "sha256-kfHyzZaPHgqZML48OA+5JwBOsLdQJ2ci/aGPShvUB4Y=",
         "owner": "soramanew",
         "repo": "m3shapes",
-        "rev": "32ad9ce328bb77ed349b40a3be10ee9ea610b8ab",
+        "rev": "bdc327b29f95394a732baf3c9b19658ba23755b6",
         "type": "github"
       },
       "original": {
         "owner": "soramanew",
         "repo": "m3shapes",
-        "rev": "32ad9ce328bb77ed349b40a3be10ee9ea610b8ab",
+        "rev": "bdc327b29f95394a732baf3c9b19658ba23755b6",
         "type": "github"
       }
     },
@@ -64,16 +109,16 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
-          "caelestia-shell",
+          "volvelle-shell",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1787994703,
-        "narHash": "sha256-6SUZyyALo19heYPa/Xmu2H4zV+wvdfVX4fTcqbgHRnI=",
+        "lastModified": 1785704021,
+        "narHash": "sha256-eQtczKMAS4ItlB4pr1B3MqBZiyRVl2nkqNdtyRSQMa8=",
         "ref": "refs/heads/master",
-        "rev": "2d3b3e9c70ef380dff751b61d334dc88df016c29",
-        "revCount": 856,
+        "rev": "28771c7c74b42e20afca0b1b63980cb46515537c",
+        "revCount": 835,
         "type": "git",
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       },
@@ -84,8 +129,53 @@
     },
     "root": {
       "inputs": {
-        "caelestia-shell": "caelestia-shell",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "volvelle-shell": "volvelle-shell"
+      }
+    },
+    "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788006766,
+        "narHash": "sha256-2y3YICAYI5iU5lO35jqoES7CnLRCRXI7JNoHFhmhcD8=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "e96ea7a5805992ec868e8ab185bc371267048421",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "volvelle-shell": {
+      "inputs": {
+        "crane": "crane",
+        "cxx-qt-cmake": "cxx-qt-cmake",
+        "cxx-qt-source": "cxx-qt-source",
+        "fenix": "fenix",
+        "m3shapes": "m3shapes",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": "quickshell",
+        "volvelle-cli": []
+      },
+      "locked": {
+        "lastModified": 1789269746,
+        "narHash": "sha256-AGOAB/W9W/iIgk+nRfwLlAkrxw+HZ0JeA2Rxj0sc2aE=",
+        "ref": "main",
+        "rev": "89557c95d59b73d99e13bdd41ed33b99c31eb09a",
+        "revCount": 2645,
+        "type": "git",
+        "url": "ssh://git@github.com/arcane-semantics/volvelle-shell"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/arcane-semantics/volvelle-shell"
       }
     }
   },

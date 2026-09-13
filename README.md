@@ -1,6 +1,9 @@
-# caelestia-cli
+# volvelle-cli
 
-The main control script for the Caelestia dotfiles.
+The command-line interface for Volvelle shell and its desktop integrations.
+
+Volvelle CLI originated as a fork of
+[Caelestia CLI](https://github.com/caelestia-dots/cli).
 
 <details><summary id="dependencies">External dependencies</summary>
 
@@ -19,21 +22,12 @@ The main control script for the Caelestia dotfiles.
 
 ## Installation
 
-### Arch linux
-
-The CLI is available from the AUR as `caelestia-cli`. You can install it with an AUR helper
-like [`yay`](https://github.com/Jguer/yay) or manually downloading the PKGBUILD and running `makepkg -si`.
-
-A package following the latest commit also exists as `caelestia-cli-git`. This is bleeding edge
-and likely to be unstable/have bugs. Regular users are recommended to use the stable package
-(`caelestia-cli`).
-
 ### Nix
 
 You can run the CLI directly via `nix run`:
 
 ```sh
-nix run github:caelestia-dots/cli
+nix run 'git+ssh://git@github.com/arcane-semantics/volvelle-cli?ref=main'
 ```
 
 Or add it to your system configuration:
@@ -43,17 +37,17 @@ Or add it to your system configuration:
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    caelestia-cli = {
-      url = "github:caelestia-dots/cli";
+    volvelle-cli = {
+      url = "git+ssh://git@github.com/arcane-semantics/volvelle-cli?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }
 ```
 
-The package is available as `caelestia-cli.packages.<system>.default`, which can be added to your
+The package is available as `volvelle-cli.packages.<system>.default`, which can be added to your
 `environment.systemPackages`, `users.users.<username>.packages`, `home.packages` if using home-manager,
-or a devshell. The CLI can then be used via the `caelestia` command.
+or a devshell. The CLI can then be used via the `volvelle` command.
 
 > [!TIP]
 > The default package does not have the shell enabled by default, which is required for full functionality.
@@ -61,8 +55,8 @@ or a devshell. The CLI can then be used via the `caelestia` command.
 > the CLI exposes the shell via the `shell` subcommand, meaning there is no need for the shell package
 > to be exposed.
 
-For home-manager, you can also use the Caelestia's home manager module (explained in
-[configuring](https://github.com/caelestia-dots/shell?tab=readme-ov-file#home-manager-module)) that
+For home-manager, you can also use the Volvelle's home manager module (explained in
+[configuring](https://github.com/arcane-semantics/volvelle-shell?tab=readme-ov-file#home-manager-module)) that
 installs and configures the shell and the CLI.
 
 ### Manual installation
@@ -81,15 +75,15 @@ yay -S libnotify swappy grim dart-sass wl-clipboard slurp gpu-screen-recorder gl
 
 Now, clone the repo, `cd` into it, build the wheel via `python -m build --wheel`
 and install it via `python -m installer dist/*.whl`. Then, to install the `fish`
-completions, copy the `completions/caelestia.fish` file to
-`/usr/share/fish/vendor_completions.d/caelestia.fish`.
+completions, copy the `completions/volvelle.fish` file to
+`/usr/share/fish/vendor_completions.d/volvelle.fish`.
 
 ```sh
-git clone https://github.com/caelestia-dots/cli.git
-cd cli
+jj git clone git@github.com:arcane-semantics/volvelle-cli.git
+cd volvelle-cli
 python -m build --wheel
 sudo python -m installer dist/*.whl
-sudo cp completions/caelestia.fish /usr/share/fish/vendor_completions.d/caelestia.fish
+sudo cp completions/volvelle.fish /usr/share/fish/vendor_completions.d/volvelle.fish
 ```
 
 ### Additional steps
@@ -116,19 +110,19 @@ You can allow this by creating a sudoers file:
 ```fish
 # Fish shell
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/caelestia-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/caelestia.json" | sudo tee -a /etc/sudoers.d/caelestia-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/volvelle-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/volvelle.json" | sudo tee -a /etc/sudoers.d/volvelle-chromium
 end
-sudo chmod 440 /etc/sudoers.d/caelestia-chromium
+sudo chmod 440 /etc/sudoers.d/volvelle-chromium
 ```
 
 ```sh
 # Bash/other shells
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed; do
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/caelestia-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/caelestia.json" | sudo tee -a /etc/sudoers.d/caelestia-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/volvelle-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/volvelle.json" | sudo tee -a /etc/sudoers.d/volvelle-chromium
 done
-sudo chmod 440 /etc/sudoers.d/caelestia-chromium
+sudo chmod 440 /etc/sudoers.d/volvelle-chromium
 ```
 
 ## Usage
@@ -136,10 +130,10 @@ sudo chmod 440 /etc/sudoers.d/caelestia-chromium
 All subcommands/options can be explored via the help flag.
 
 ```
-$ caelestia -h
-usage: caelestia [-h] [-v] COMMAND ...
+$ volvelle -h
+usage: volvelle [-h] [-v] COMMAND ...
 
-Main control script for the Caelestia dotfiles
+Command-line interface for Volvelle
 
 options:
   -h, --help     show this help message and exit
@@ -158,13 +152,13 @@ subcommands:
     emoji        emoji/glyph utilities
     wallpaper    manage the wallpaper
     resizer      window resizer daemon
-    install      install the Caelestia dotfiles
-    update       update the Caelestia dotfiles
+    install      install the configured desktop files
+    update       update the configured desktop files
 ```
 
 ### User templates
 
-Custom user templates can be defined in `~/.config/caelestia/templates/`.
+Custom user templates can be defined in `~/.config/volvelle/templates/`.
 
 #### Template syntax
 
@@ -181,11 +175,11 @@ Custom user templates can be defined in `~/.config/caelestia/templates/`.
 - `{{ primary.hsl }}` outputs `hsl(268,41%,66%)`
 - `{{ primary.hue }}` outputs `268`
 
-Output files are written to `~/.local/state/caelestia/theme/`. You can symlink them to your desired locations.
+Output files are written to `~/.local/state/volvelle/theme/`. You can symlink them to your desired locations.
 
 ## Configuring
 
-All configuration options are in `~/.config/caelestia/cli.json`.
+All configuration options are in `~/.config/volvelle/cli.json`.
 
 <details><summary>Example configuration</summary>
 
